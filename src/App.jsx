@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const API = "http://localhost:8080/api";
+const API = "https://todo-backend-production-dca6.up.railway.app/api";
 
 export default function App() {
     const [token, setToken] = useState(localStorage.getItem("token") || "");
