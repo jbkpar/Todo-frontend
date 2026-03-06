@@ -10,6 +10,7 @@ export default function App() {
     const [password, setPassword] = useState("");
     const [authError, setAuthError] = useState("");
 
+    const [todoError, setTodoError] = useState("");
     const [todos, setTodos] = useState([]);
     const [title, setTitle] = useState("");
 
@@ -85,7 +86,15 @@ export default function App() {
     }
 
     async function addTodo() {
-        if (!title.trim()) return;
+        setTodoError("");
+        if (!title.trim()) {
+            setTodoError("Title cannot be blank");
+            return;
+        }
+        if (title.length > 100) {
+            setTodoError("Title cannot exceed 100 characters");
+            return;
+        }
         await fetch(`${API}/todos`, {
             method: "POST",
             headers: authHeaders(),
@@ -205,6 +214,7 @@ export default function App() {
                 </div>
                 <button className="add-btn" onClick={addTodo}>+ Add</button>
             </div>
+            {todoError && <div className="todo-error">{todoError}</div>}
 
             {todos.length === 0 ? (
                 <div className="empty">
